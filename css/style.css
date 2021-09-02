@@ -1,0 +1,133 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  max-height: 100vh;
+  overflow: hidden;
+  background-color: #000;
+}
+
+button {
+  background: none;
+  border: none;
+  width: 2.2rem;
+  -webkit-transition: ease all .2s;
+  transition: ease all .2s;
+}
+
+button:hover {
+  cursor: pointer;
+  -webkit-transform: scale(1.15, 1.15);
+          transform: scale(1.15, 1.15);
+  -webkit-transition: ease all .2s;
+  transition: ease all .2s;
+}
+
+button svg:hover {
+  fill: #FFF;
+  stroke: #FFF;
+}
+
+svg {
+  fill: #A1A1A1;
+  stroke: #A1A1A1;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  width: 100%;
+  height: 100%;
+}
+
+svg path {
+  fill: none;
+}
+
+.video-container {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+}
+
+.video-container video {
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.bottom__video-control {
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.8)), to(rgba(0, 0, 0, 0.4)));
+  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.4));
+  width: 100%;
+  height: 100px;
+  position: absolute;
+  bottom: 0;
+  z-index: 2;
+}
+
+.progress-bar {
+  height: 8px;
+  width: 98%;
+  margin: 0 auto;
+  background: #A1A1A1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.progress-bar .watched-time {
+  background: red;
+  height: 8px;
+}
+
+.progress-bar .circle {
+  background-color: red;
+  width: 25px;
+  height: 25px;
+  margin-left: -1px;
+  border-radius: 50px;
+}
+
+.left {
+  left: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  float: left;
+  height: 100%;
+}
+
+.left button {
+  margin: auto 20px;
+}
+
+.right {
+  right: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  float: right;
+  height: 100%;
+}
+
+.right button {
+  margin: auto 20px;
+  right: 0;
+}
+
+.pause, .muted, .full {
+  display: none;
+}
+/*# sourceMappingURL=style.css.map */
