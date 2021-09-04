@@ -1,24 +1,26 @@
 
-let video = document.querySelector('video');
-//let playBtn = document.querySelector('.play-pause');
-let playSVG = document.querySelector('.play-pause .play');
-let pauseSVG = document.querySelector('.play-pause .pause');
-//let screenSize = document.querySelector('.screen-size');
-let fullScreenSVG = document.querySelector('.screen-size .full');
-let minimizedScreenSVG = document.querySelector('.screen-size .minimized');
-let watchedTime = document.querySelector('.progress-bar .watched-time');
-let circle = document.querySelector('.progress-bar .circle');
+const video = document.querySelector('video');
+const play = document.querySelector('.play-pause .play');
+const pause = document.querySelector('.play-pause .pause');
+const fullScreen = document.querySelector('.screen-size .full');
+const minimizedScreen = document.querySelector('.screen-size .minimized');
+const watchedTime = document.querySelector('.progress-bar .watched-time');
+const circle = document.querySelector('.progress-bar .circle');
+const progressBar = document.querySelector('.progress-bar');
+const volumeUp = document.querySelector('.volume .up');
+const volumeMuted = document.querySelector('.volume .muted');
+const controlsBar = document.querySelector('.bottom__video-control');
 
 //Play & Pause 
 function playPause() {
     if(video.paused) {
         video.play();
-        playSVG.style.display = "none";
-        pauseSVG.style.display = "block";
+        play.style.display = "none";
+        pause.style.display = "block";
     } else {
         video.pause();
-        playSVG.style.display = "block";
-        pauseSVG.style.display = "none";    
+        play.style.display = "block";
+        pause.style.display = "none";            
     }
 }
 
@@ -26,18 +28,82 @@ function playPause() {
 function changeScreenSize() {
     if(document.fullscreenElement) {     
         document.exitFullscreen();
-        fullScreenSVG.style.display = "none";
-        minimizedScreenSVG.style.display = "block";  
+        fullScreen.style.display = "block";
+        minimizedScreen.style.display = "none";  
     } else {        
         document.documentElement.requestFullscreen();
-        fullScreenSVG.style.display = "block";
-        minimizedScreenSVG.style.display = "none";
+        fullScreen.style.display = "none";
+        minimizedScreen.style.display = "block";
+    }
+}
+
+
+function forward() {
+    video.currentTime += 10;
+}
+
+function back() {
+    video.currentTime -= 10;
+}
+
+function volume() {
+    if(video.muted) {
+        video.muted = false;
+        volumeUp.style.display = "block";
+        volumeMuted.style.display = "none"; 
+    } else {
+        video.muted = true;
+        volumeUp.style.display = "none";
+        volumeMuted.style.display = "block"; 
     }
 }
 
 //Calculate watched time
 video.addEventListener('timeupdate', () => {
-    watchedTime.style.width = ((video.currentTime  / video.duration) * 100) + "%";
-    circle.left
+    watchedTime.style.width = ((video.currentTime  / video.duration) * 100) + "%";    
 })
-    
+
+progressBar.addEventListener('click', (e) => {
+    let target = (e.pageX - progressBar.offsetLeft) / progressBar.offsetWidth;    
+    video.currentTime = (target * video.duration) ; 
+})
+
+//Shortcuts
+document.addEventListener('keyup', (e) => {
+    if(e.keyCode === 32)
+        playPause();
+
+    if(e.keyCode === 37)
+        back();
+
+    if(e.keyCode === 39)
+        forward();
+
+    if(e.keyCode === 70)
+        changeScreenSize();
+
+    if(e.keyCode === 77)
+        volume();
+
+    showControls();
+})
+
+// Hide controls bar after 5 seconds
+let controlsTimeout;
+function showControls() {        
+    //clearInterval(controlsTimeout);
+    controlsBar.style.opacity = "1";
+    hideControls();
+}
+
+function hideControls() {
+    if(video.played) {
+        controlsTimeout = setTimeout(() => {
+            controlsBar.style.opacity = "0";
+        }, 5000);
+    }  
+}
+
+document.addEventListener('mousemove', () => {
+    showControls();
+})
